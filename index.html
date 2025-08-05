@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PassWorkshop - 专业密码生成器</title>
+    <meta name="description" content="安全、便捷的在线密码生成器，支持多种生成模式和自定义选项">
+    <meta name="keywords" content="密码生成器,安全密码,随机密码,强密码">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23646cff' stroke-width='2'%3E%3Cpath d='M6 10h12M6 14h12M6 18h12'/%3E%3C/svg%3E">
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部导航 -->
+        <header class="header">
+            <div class="nav">
+                <div class="logo">
+                    <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="10" rx="2" ry="2"></rect>
+                        <circle cx="12" cy="16" r="1"></circle>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    <span class="logo-text">PassWorkshop</span>
+                </div>
+                <div class="nav-controls">
+                    <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+                        <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <path d="m12 2 3 10L12 22l-3-10z"></path>
+                        </svg>
+                    </button>
+                    <button class="lang-toggle" id="langToggle">中</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主要内容区域 -->
+        <main class="main">
+            <!-- 密码生成区域 -->
+            <section class="generator-section">
+                <div class="card">
+                    <h1 class="title" data-i18n="title">专业密码生成器</h1>
+                    <p class="subtitle" data-i18n="subtitle">创建安全、强壮的密码来保护您的账户</p>
+                    
+                    <!-- 生成的密码显示区域 -->
+                    <div class="password-display">
+                        <div class="password-output">
+                            <input type="text" id="passwordOutput" class="password-input" readonly 
+                                   placeholder="点击生成按钮创建密码..." data-i18n-placeholder="generated_password_placeholder">
+                            <div class="password-actions">
+                                <button class="action-btn copy-btn" id="copyBtn" title="复制密码" data-i18n-title="copy_password">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                </button>
+                                <button class="action-btn regenerate-btn" id="regenerateBtn" title="重新生成" data-i18n-title="regenerate">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="23 4 23 10 17 10"></polyline>
+                                        <polyline points="1 20 1 14 7 14"></polyline>
+                                        <path d="m3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="password-strength">
+                            <div class="strength-meter">
+                                <div class="strength-bar" id="strengthBar"></div>
+                            </div>
+                            <span class="strength-text" id="strengthText" data-i18n="strength_weak">强度：弱</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 设置面板 -->
+            <section class="settings-section">
+                <div class="card">
+                    <h2 class="section-title" data-i18n="generation_settings">生成设置</h2>
+                    
+                    <!-- 密码长度 -->
+                    <div class="setting-group">
+                        <label class="setting-label" data-i18n="password_length">密码长度</label>
+                        <div class="length-control">
+                            <input type="range" id="lengthSlider" min="4" max="128" value="16" class="slider">
+                            <input type="number" id="lengthInput" min="4" max="128" value="16" class="length-input">
+                        </div>
+                    </div>
+
+                    <!-- 字符集选择 -->
+                    <div class="setting-group">
+                        <label class="setting-label" data-i18n="character_sets">字符集</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="uppercase" checked>
+                                <span class="checkmark"></span>
+                                <span data-i18n="uppercase">大写字母 (A-Z)</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="lowercase" checked>
+                                <span class="checkmark"></span>
+                                <span data-i18n="lowercase">小写字母 (a-z)</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="numbers" checked>
+                                <span class="checkmark"></span>
+                                <span data-i18n="numbers">数字 (0-9)</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="symbols" checked>
+                                <span class="checkmark"></span>
+                                <span data-i18n="symbols">特殊符号 (!@#$%^&*)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 高级选项 -->
+                    <div class="setting-group">
+                        <label class="setting-label" data-i18n="advanced_options">高级选项</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="excludeSimilar">
+                                <span class="checkmark"></span>
+                                <span data-i18n="exclude_similar">排除相似字符 (0,O,l,1)</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="noRepeats">
+                                <span class="checkmark"></span>
+                                <span data-i18n="no_repeats">不重复字符</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 密码数量 -->
+                    <div class="setting-group">
+                        <label class="setting-label" data-i18n="password_count">生成数量</label>
+                        <div class="count-control">
+                            <input type="number" id="countInput" min="1" max="100" value="1" class="count-input">
+                            <span class="count-label" data-i18n="passwords">个密码</span>
+                        </div>
+                    </div>
+
+                    <!-- 生成按钮 -->
+                    <button class="generate-btn" id="generateBtn" data-i18n="generate_password">生成密码</button>
+                </div>
+            </section>
+
+            <!-- 密码历史 -->
+            <section class="history-section">
+                <div class="card">
+                    <div class="section-header">
+                        <h2 class="section-title" data-i18n="password_history">密码历史</h2>
+                        <div class="history-actions">
+                            <button class="btn-secondary" id="exportBtn" data-i18n="export">导出</button>
+                            <button class="btn-secondary" id="clearHistoryBtn" data-i18n="clear_history">清空历史</button>
+                        </div>
+                    </div>
+                    <div class="history-list" id="historyList">
+                        <div class="empty-state" data-i18n="no_history">暂无生成记录</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p data-i18n="footer_security">🔒 所有密码均在本地生成，不会存储或传输到服务器</p>
+                <p>&copy; 2024 PassWorkshop. <span data-i18n="footer_rights">保留所有权利</span></p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 提示消息 -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <span class="toast-message" id="toastMessage"></span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
